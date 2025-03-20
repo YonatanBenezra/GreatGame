@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwxytda6vx01i"]
+
+[ext_resource type="Texture2D" uid="uid://c1vp0vksxkmto" path="res://assets/conveyor.png" id="1_sojpk"]
+[ext_resource type="Script" path="res://entities/components/building_component.gd" id="2_c3um8"]
+[ext_resource type="Script" path="res://entities/components/building_collision_component.gd" id="3_6ktl2"]
+[ext_resource type="Texture2D" uid="uid://cbsie6cjpe8ga" path="res://assets/tileselected.png" id="3_uep4o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fiynj"]
+size = Vector2(64, 64)
+
+[node name="conyeyor_tier1" type="Sprite2D"]
+texture = ExtResource("1_sojpk")
+
+[node name="BuildingComponent" type="Node" parent="."]
+script = ExtResource("2_c3um8")
+buildingSize = 1
+buildingType = "Conveyor"
+buildingTier = 1
+
+[node name="hud_selectionoverlay" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.294118, 1, 0.215686, 1)
+z_index = 4
+texture = ExtResource("3_uep4o")
+
+[node name="BuildingCollisionComponent" type="Area2D" parent="." node_paths=PackedStringArray("buildingComponent", "selectionOverlay", "building")]
+script = ExtResource("3_6ktl2")
+buildingComponent = NodePath("../BuildingComponent")
+selectionOverlay = NodePath("../hud_selectionoverlay")
+building = NodePath("..")
+
+[node name="BuildingCollision" type="CollisionShape2D" parent="BuildingCollisionComponent"]
+shape = SubResource("RectangleShape2D_fiynj")
+
+[connection signal="mouse_entered" from="BuildingCollisionComponent" to="BuildingCollisionComponent" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BuildingCollisionComponent" to="BuildingCollisionComponent" method="_on_mouse_exited"]

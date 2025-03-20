@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgmdutiyftdd7"]
+
+[ext_resource type="Texture2D" uid="uid://b1u6uy3pwmab3" path="res://assets/monster.png" id="1_q2eei"]
+[ext_resource type="Script" path="res://scripts/playercamera.gd" id="2_hi4ix"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3v6ar"]
+radius = 13.0
+
+[node name="Monster" type="CharacterBody2D"]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3v6ar")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q2eei")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("2_hi4ix")

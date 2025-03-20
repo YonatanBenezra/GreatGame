@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6h6x2vowjtcd"]
+
+[ext_resource type="Texture2D" uid="uid://co4iqhxqlvgx" path="res://assets/tileset.png" id="1_s2ubf"]
+[ext_resource type="Texture2D" uid="uid://cbsie6cjpe8ga" path="res://assets/tileselected.png" id="2_e4an2"]
+[ext_resource type="Script" path="res://scripts/tilemap_world.gd" id="3_78bcc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3hljr"]
+texture = ExtResource("1_s2ubf")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v3ggw"]
+texture = ExtResource("2_e4an2")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_q7nsu"]
+sources/1 = SubResource("TileSetAtlasSource_3hljr")
+sources/2 = SubResource("TileSetAtlasSource_v3ggw")
+
+[node name="game" type="Node2D"]
+
+[node name="world" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_q7nsu")
+format = 2
+layer_0/name = "ground"
+layer_1/name = "select"
+script = ExtResource("3_78bcc")
+
+[node name="Camera2D" type="Camera2D" parent="."]

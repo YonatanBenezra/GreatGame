@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://by3uli27rxc3m"]
+
+[ext_resource type="Texture2D" uid="uid://bem6gxdxeatnv" path="res://assets/miner.png" id="1_h7bl2"]
+[ext_resource type="Script" path="res://entities/miners/miner_tier1/miner_tier_1.gd" id="2_k1b4p"]
+[ext_resource type="Script" path="res://entities/components/building_component.gd" id="3_c5n6o"]
+[ext_resource type="Script" path="res://entities/components/building_collision_component.gd" id="4_57jmd"]
+[ext_resource type="Texture2D" uid="uid://cbsie6cjpe8ga" path="res://assets/tileselected.png" id="4_t6b8u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hk2hu"]
+size = Vector2(192, 192)
+
+[node name="miner" type="Sprite2D"]
+texture = ExtResource("1_h7bl2")
+script = ExtResource("2_k1b4p")
+
+[node name="BuildingComponent" type="Node" parent="."]
+script = ExtResource("3_c5n6o")
+buildingSize = 3
+buildingPath = "res://entities/miners/miner_tier1/miner_tier1.tscn"
+buildingType = "Miner"
+buildingTier = 1
+
+[node name="hud_selectionoverlay" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.294118, 1, 0.215686, 1)
+z_index = 4
+scale = Vector2(3, 3)
+texture = ExtResource("4_t6b8u")
+
+[node name="BuildingCollisionComponent" type="Area2D" parent="." node_paths=PackedStringArray("buildingComponent", "selectionOverlay")]
+script = ExtResource("4_57jmd")
+buildingComponent = NodePath("../BuildingComponent")
+selectionOverlay = NodePath("../hud_selectionoverlay")
+
+[node name="BuildingCollision" type="CollisionShape2D" parent="BuildingCollisionComponent"]
+shape = SubResource("RectangleShape2D_hk2hu")

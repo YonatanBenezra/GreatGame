@@ -1,0 +1,71 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6h6x2vowjtcd"]
+
+[ext_resource type="Texture2D" uid="uid://co4iqhxqlvgx" path="res://assets/tileset.png" id="1_s2ubf"]
+[ext_resource type="Texture2D" uid="uid://cbsie6cjpe8ga" path="res://assets/tileselected.png" id="2_e4an2"]
+[ext_resource type="Script" path="res://scripts/tilemap_buildings.gd" id="2_uybe6"]
+[ext_resource type="Script" path="res://scripts/tilemap_world.gd" id="3_78bcc"]
+[ext_resource type="PackedScene" uid="uid://cvg3rmuayiuye" path="res://entities/player/player.tscn" id="4_r708o"]
+[ext_resource type="Texture2D" uid="uid://bem6gxdxeatnv" path="res://assets/miner.png" id="4_tt6e0"]
+[ext_resource type="Script" path="res://scripts/tilemap_hud.gd" id="5_prkwn"]
+[ext_resource type="Script" path="res://entities/player/player.gd" id="5_s4kff"]
+[ext_resource type="Script" path="res://entities/player/hot_bar_component.gd" id="9_eoawq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpu6"]
+texture = ExtResource("1_s2ubf")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5v7h2"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_4cpu6")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8tf43"]
+texture = ExtResource("4_tt6e0")
+texture_region_size = Vector2i(64, 64)
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_6kxch"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_8tf43")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2w6cb"]
+texture = ExtResource("2_e4an2")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_mdj6x"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_2w6cb")
+
+[node name="game" type="Node2D"]
+
+[node name="ground" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_5v7h2")
+rendering_quadrant_size = 64
+script = ExtResource("3_78bcc")
+
+[node name="buildings" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_6kxch")
+rendering_quadrant_size = 64
+script = ExtResource("2_uybe6")
+
+[node name="hud" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_mdj6x")
+rendering_quadrant_size = 64
+script = ExtResource("5_prkwn")
+
+[node name="player" parent="." node_paths=PackedStringArray("hotbarComponent") instance=ExtResource("4_r708o")]
+script = ExtResource("5_s4kff")
+hotbarComponent = NodePath("HotBarComponent")
+
+[node name="HotBarComponent" type="Node" parent="player"]
+script = ExtResource("9_eoawq")
+
+[connection signal="placedBuilding" from="buildings" to="hud" method="_on_buildings_placed_building"]
+[connection signal="updatedHotbar" from="player/HotBarComponent" to="buildings" method="_on_hot_bar_component_updated_hotbar"]
+[connection signal="updatedHotbar" from="player/HotBarComponent" to="player" method="_on_hot_bar_component_updated_hotbar"]
