@@ -5,7 +5,7 @@ extends CharacterBody2D
 var direction: Vector2 = Vector2.ZERO
 @export var walkSpeed: int = 90
 @export var currentBuilding: String = ""
-var sprintSpeed: int = 200
+var sprintSpeed: int = 100
 var speed = walkSpeed
 
 func _ready() -> void:
