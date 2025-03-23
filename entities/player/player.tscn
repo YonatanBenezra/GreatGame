@@ -13,6 +13,7 @@ motion_mode = 1
 shape = SubResource("CircleShape2D_3v6ar")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.368627, 1, 1, 1)
 texture = ExtResource("1_y4jyp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
