@@ -5,8 +5,10 @@ extends CharacterBody2D
 var direction: Vector2 = Vector2.ZERO
 @export var walkSpeed: int = 100
 @export var currentBuilding: String = ""
+@export var Bullet : PackedScene = preload("res://entities/weapons/Bullet/Bullet.tscn")
 var sprintSpeed: int = 200
 var speed = walkSpeed
+
 
 func _ready() -> void:
 	currentBuilding = hotbarComponent.getBuilding()
@@ -19,6 +21,8 @@ func _process(_delta: float) -> void:
 		speed = sprintSpeed
 	if Input.is_action_just_released("sprint"):
 		speed = walkSpeed
+	if Input.is_action_just_pressed("shoot"):
+		shoot_bullet()
 		
 	look_at(get_global_mouse_position())
 
@@ -28,3 +32,13 @@ func _physics_process(_delta: float) -> void:
 
 func _on_hot_bar_component_updated_hotbar() -> void:
 	currentBuilding = hotbarComponent.getBuilding()
+	
+func shoot_bullet():
+	var bullet_instance = Bullet.instantiate()
+	var mouse_position = get_global_mouse_position()
+	var direction = (mouse_position - bullet_instance.position).normalized()
+	bullet_instance.shoot(direction)
+	get_tree().current_scene.add_child(bullet_instance)
+	
+
+	
