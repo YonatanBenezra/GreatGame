@@ -15,5 +15,5 @@ func _on_Bullet_body_entered(body):
 	queue_free()
 	
 func shoot(dir:Vector2):
-	rotation = direction.angle()
 	direction = dir
+	rotation = direction.angle()

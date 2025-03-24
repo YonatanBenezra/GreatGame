@@ -35,6 +35,7 @@ func _on_hot_bar_component_updated_hotbar() -> void:
 	
 func shoot_bullet():
 	var bullet_instance = Bullet.instantiate()
+	bullet_instance.position = global_position
 	var mouse_position = get_global_mouse_position()
 	var direction = (mouse_position - bullet_instance.position).normalized()
 	bullet_instance.shoot(direction)
