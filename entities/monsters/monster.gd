@@ -22,6 +22,7 @@ func _process(_delta: float) -> void:
 		
 	look_at(get_global_mouse_position())
 
+
 func _physics_process(_delta: float) -> void:
 	velocity = direction * speed
 	move_and_slide()
