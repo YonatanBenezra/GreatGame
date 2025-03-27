@@ -1,31 +1,24 @@
 extends CharacterBody2D
 
-@onready var hotbarComponent = $HotBarComponent
-
 var direction: Vector2 = Vector2.ZERO
 @export var walkSpeed: int = 90
 @export var currentBuilding: String = ""
+var hub: Sprite2D
+@onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 var sprintSpeed: int = 100
-var speed = walkSpeed
+var speed = 0.3
+
 
 func _ready() -> void:
-	currentBuilding = hotbarComponent.getBuilding()
-	print(currentBuilding)
-
-func _process(_delta: float) -> void:
-	direction = Input.get_vector("left", "right", "up", "down")
+	hub = get_tree().get_first_node_in_group("Hub")
+	makepath()
 	
-	if Input.is_action_pressed("sprint"):
-		speed = sprintSpeed
-	if Input.is_action_just_released("sprint"):
-		speed = walkSpeed
-		
-	look_at(get_global_mouse_position())
-
+	
 
 func _physics_process(_delta: float) -> void:
+	direction = to_local(nav_agent.get_next_path_position().normalized())
 	velocity = direction * speed
 	move_and_slide()
-
-func _on_hot_bar_component_updated_hotbar() -> void:
-	currentBuilding = hotbarComponent.getBuilding()
+	
+func makepath()-> void:
+	nav_agent.target_position = hub.global_position

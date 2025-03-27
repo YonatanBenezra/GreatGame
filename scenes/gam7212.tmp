@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6h6x2vowjtcd"]
+[gd_scene load_steps=21 format=3 uid="uid://c6h6x2vowjtcd"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_dinhu"]
 [ext_resource type="Texture2D" uid="uid://co4iqhxqlvgx" path="res://assets/tileset.png" id="1_s2ubf"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/tilemap_hud.gd" id="5_prkwn"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="5_s4kff"]
 [ext_resource type="Script" path="res://entities/player/hot_bar_component.gd" id="9_eoawq"]
+[ext_resource type="Script" path="res://entities/monsters/monster.gd" id="10_3uvcg"]
 [ext_resource type="PackedScene" uid="uid://bgmdutiyftdd7" path="res://entities/monsters/monster.tscn" id="10_40let"]
 [ext_resource type="PackedScene" uid="uid://p53tr43oxoqw" path="res://entities/weapons/Bullet/Bullet.tscn" id="11_7w6dq"]
 [ext_resource type="PackedScene" uid="uid://cktbg8lgbi58v" path="res://entities/hub/hub_1/hub.tscn" id="14_xtnmd"]
@@ -65,7 +66,7 @@ tile_set = SubResource("TileSet_mdj6x")
 rendering_quadrant_size = 64
 script = ExtResource("5_prkwn")
 
-[node name="player" parent="." groups=["player"] instance=ExtResource("4_r708o")]
+[node name="player" parent="." instance=ExtResource("4_r708o")]
 position = Vector2(105, -3)
 script = ExtResource("5_s4kff")
 walkSpeed = 100
@@ -77,8 +78,9 @@ script = ExtResource("9_eoawq")
 
 [node name="monster" parent="." instance=ExtResource("10_40let")]
 visible = false
-position = Vector2(882, -380)
-wall_min_slide_angle = 0.254818
+position = Vector2(436, -155)
+collision_layer = 4
+script = ExtResource("10_3uvcg")
 
 [node name="HotBarComponent" type="Node" parent="monster"]
 script = ExtResource("9_eoawq")
@@ -100,7 +102,7 @@ position = Vector2(1401, -1069)
 [node name="SpawnPoint5" type="Marker2D" parent="." groups=["spawn_points"]]
 position = Vector2(1799, 488)
 
-[node name="Hub" parent="." groups=["Hub"] instance=ExtResource("14_xtnmd")]
+[node name="Hub" parent="." instance=ExtResource("14_xtnmd")]
 
 [connection signal="placedBuilding" from="buildings" to="hud" method="_on_buildings_placed_building"]
 [connection signal="updatedHotbar" from="player/HotBarComponent" to="buildings" method="_on_hot_bar_component_updated_hotbar"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvg3rmuayiuye"]
 
 [ext_resource type="Texture2D" uid="uid://dx6nrr8kcihow" path="res://assets/player.png" id="1_y4jyp"]
-[ext_resource type="Script" uid="uid://b4j1vmdjdrlu4" path="res://scripts/playercamera.gd" id="3_44tmr"]
+[ext_resource type="Script" path="res://scripts/playercamera.gd" id="3_44tmr"]
 
 [sub_resource type="GDScript" id="GDScript_abrql"]
 
@@ -9,6 +9,8 @@
 radius = 13.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 motion_mode = 1
 script = SubResource("GDScript_abrql")
 
