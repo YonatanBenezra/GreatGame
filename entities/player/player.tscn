@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvg3rmuayiuye"]
+[gd_scene load_steps=10 format=3 uid="uid://cvg3rmuayiuye"]
 
 [ext_resource type="Texture2D" uid="uid://dx6nrr8kcihow" path="res://assets/player.png" id="1_y4jyp"]
 [ext_resource type="Script" path="res://scripts/playercamera.gd" id="3_44tmr"]
+[ext_resource type="Texture2D" uid="uid://c6ldd80dhefs1" path="res://assets/HUD_Icons/bulets__HUD_icon.png" id="3_kicux"]
+[ext_resource type="Script" path="res://entities/player/HUD.gd" id="3_ot47q"]
+[ext_resource type="Texture2D" uid="uid://56c5qiokqy3c" path="res://assets/HUD_Icons/iron__HUD_iconpng.png" id="4_yg0yl"]
+[ext_resource type="Texture2D" uid="uid://b5t5y805nrs48" path="res://assets/HUD_Icons/oil__HUD_icon.png" id="5_na55q"]
 
 [sub_resource type="GDScript" id="GDScript_abrql"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3v6ar"]
 radius = 13.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xx7rg"]
+corner_radius_bottom_right = 15
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -24,3 +31,200 @@ texture = ExtResource("1_y4jyp")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 script = ExtResource("3_44tmr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="HUD" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_ot47q")
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -1560.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xx7rg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 350.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Bullets" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Icon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("3_kicux")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Amount" type="Label" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Bullets/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Iron" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Icon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_yg0yl")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Amount" type="Label" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Iron/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Oil" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+
+[node name="Icon" type="TextureRect" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("5_na55q")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Amount" type="Label" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Camera2D/CanvasLayer/HUD/Panel/HBoxContainer/Oil/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05

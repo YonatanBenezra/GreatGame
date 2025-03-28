@@ -5,9 +5,6 @@ extends Node2D
 @export var minSpawnTime: float = 0.5  # Minimum interval (limit)
 @export var spawnDecreaseRate: float = 0.1  # How much to decrease each time
 
-
-
-
 func _ready():
 	spawn_timer.timeout.connect(spawn_enemy)  # Call spawn_enemy() when the timer runs out
 	spawn_timer.start(spawnTime) 
@@ -16,6 +13,7 @@ func _ready():
 
 
 func spawn_enemy():
+	
 	var min_distance = 800  # Minimum distance from base
 	var max_distance = 1700  # Maximum distance from base
 	var playerHub = get_node("Hub")
