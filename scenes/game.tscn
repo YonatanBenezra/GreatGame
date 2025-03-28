@@ -76,7 +76,6 @@ Bullet = ExtResource("11_7w6dq")
 script = ExtResource("9_eoawq")
 
 [node name="monster" parent="." instance=ExtResource("10_40let")]
-visible = false
 position = Vector2(882, -380)
 wall_min_slide_angle = 0.254818
 

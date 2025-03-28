@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://scripts/playercamera.gd" id="2_hi4ix"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3v6ar"]
-radius = 46.2709
+radius = 60.0333
 
-[node name="Monster" type="CharacterBody2D"]
+[node name="Monster" type="CharacterBody2D" groups=["Enemies"]]
 position = Vector2(-1, 0)
 collision_layer = 2
 collision_mask = 3
@@ -16,7 +16,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_n5q8a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -16)
+position = Vector2(0, -20)
 shape = SubResource("CircleShape2D_3v6ar")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
