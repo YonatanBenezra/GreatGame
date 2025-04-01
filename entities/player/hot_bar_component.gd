@@ -2,7 +2,7 @@ extends Node
 class_name HotBarComponent
 
 signal updatedHotbar
-var hotBar = ["res://entities/miners/miner_tier1/miner_tier1.tscn", "res://entities/conveyors/conveyor_tier1/conyeyor_tier1.tscn", "res://entities/hub/hub_1/hub.tscn"]
+var hotBar = ["res://entities/miners/miner_tier1/miner_tier1.tscn", "res://entities/conveyors/conveyor_tier1/conyeyor_tier1.tscn", "res://entities/hub/hub_1/hub.tscn", "res://entities/turret/turret.tscn"]
 
 func getBuilding():
 	if hotBar[Global.HUD_HOTBAR_CURRENTID]:
