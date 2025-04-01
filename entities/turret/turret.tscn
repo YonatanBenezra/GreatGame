@@ -1,13 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://5d4towc57hq2"]
+[gd_scene load_steps=9 format=3 uid="uid://5d4towc57hq2"]
 
 [ext_resource type="Script" path="res://entities/turret/turret.gd" id="1_o7ko1"]
 [ext_resource type="Texture2D" uid="uid://b7p56algtrwyv" path="res://assets/turret/turret_BASE.png" id="2_gj1tn"]
 [ext_resource type="Texture2D" uid="uid://r7awu5kmjcel" path="res://assets/turret/turret_FACE.png" id="3_20co2"]
 [ext_resource type="PackedScene" uid="uid://p53tr43oxoqw" path="res://entities/weapons/Bullet/Bullet.tscn" id="4"]
+[ext_resource type="Script" path="res://entities/components/building_component.gd" id="5_t7syl"]
+[ext_resource type="Texture2D" uid="uid://cbsie6cjpe8ga" path="res://assets/tileselected.png" id="6_dq2ff"]
+[ext_resource type="Script" path="res://entities/components/building_collision_component.gd" id="7_o5dfi"]
 
-[node name="Turret" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5161q"]
+size = Vector2(64, 64)
+
+[node name="Turret" type="Sprite2D"]
 script = ExtResource("1_o7ko1")
 BULLET = ExtResource("4")
+
+[node name="BuildingComponent" type="Node" parent="."]
+script = ExtResource("5_t7syl")
+buildingSize = 3
+buildingPath = "res://entities/turret/turret.tscn"
+buildingType = "Turret"
+buildingTier = 1
+
+[node name="hud_selectionoverlay" type="Sprite2D" parent="."]
+modulate = Color(0.294118, 1, 0.215686, 1)
+z_index = 4
+texture = ExtResource("6_dq2ff")
+
+[node name="BuildingCollisionComponent" type="Area2D" parent="." node_paths=PackedStringArray("buildingComponent", "selectionOverlay", "building")]
+script = ExtResource("7_o5dfi")
+buildingComponent = NodePath("../BuildingComponent")
+selectionOverlay = NodePath("../hud_selectionoverlay")
+building = NodePath("")
+
+[node name="BuildingCollision" type="CollisionShape2D" parent="BuildingCollisionComponent"]
+shape = SubResource("RectangleShape2D_5161q")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_gj1tn")
@@ -24,4 +51,6 @@ collision_mask = 2
 wait_time = 0.25
 one_shot = true
 
+[connection signal="mouse_entered" from="BuildingCollisionComponent" to="BuildingCollisionComponent" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BuildingCollisionComponent" to="BuildingCollisionComponent" method="_on_mouse_exited"]
 [connection signal="timeout" from="RayCast2D/ReloadTimer" to="." method="_on_reload_timer_timeout"]

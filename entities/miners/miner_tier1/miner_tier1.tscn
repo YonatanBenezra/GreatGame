@@ -21,7 +21,6 @@ buildingType = "Miner"
 buildingTier = 1
 
 [node name="hud_selectionoverlay" type="Sprite2D" parent="."]
-visible = false
 modulate = Color(0.294118, 1, 0.215686, 1)
 z_index = 4
 scale = Vector2(3, 3)
