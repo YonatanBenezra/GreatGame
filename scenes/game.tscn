@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6h6x2vowjtcd"]
+[gd_scene load_steps=20 format=3 uid="uid://c6h6x2vowjtcd"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_dinhu"]
 [ext_resource type="Texture2D" uid="uid://co4iqhxqlvgx" path="res://assets/tileset.png" id="1_s2ubf"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://entities/player/hot_bar_component.gd" id="9_eoawq"]
 [ext_resource type="PackedScene" uid="uid://bgmdutiyftdd7" path="res://entities/monsters/monster.tscn" id="10_40let"]
 [ext_resource type="PackedScene" uid="uid://p53tr43oxoqw" path="res://entities/weapons/Bullet/Bullet.tscn" id="11_7w6dq"]
-[ext_resource type="PackedScene" uid="uid://5d4towc57hq2" path="res://entities/turret/turret.tscn" id="14_0xor4"]
 [ext_resource type="PackedScene" uid="uid://cktbg8lgbi58v" path="res://entities/hub/hub_1/hub.tscn" id="14_xtnmd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpu6"]
@@ -101,9 +100,6 @@ position = Vector2(1401, -1069)
 position = Vector2(1799, 488)
 
 [node name="Hub" parent="." groups=["Hub"] instance=ExtResource("14_xtnmd")]
-
-[node name="Turret" parent="." instance=ExtResource("14_0xor4")]
-position = Vector2(107, -111)
 
 [connection signal="placedBuilding" from="buildings" to="hud" method="_on_buildings_placed_building"]
 [connection signal="updatedHotbar" from="player/HotBarComponent" to="buildings" method="_on_hot_bar_component_updated_hotbar"]
