@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://vg44802l8ohq"]
+
+[ext_resource type="Texture2D" uid="uid://cgc1a2w1lophy" path="res://assets/turret/turret_BULLET.png" id="2"]
+
+[sub_resource type="GDScript" id="GDScript_0tqct"]
+script/source = "extends Area2D
+
+const RIGHT = Vector2.RIGHT
+@export var SPEED: int = 200
+
+
+func _physics_process(delta):
+	var movement = RIGHT.rotated(rotation) * SPEED * delta
+	global_position += movement
+
+func destroy():
+	queue_free()
+
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()
+
+func _on_Bullet_body_entered(body):
+	if body.is_in_group(\"Player\"):
+		destroy()
+"
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 5.51146
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 2
+script = SubResource("GDScript_0tqct")
+SPEED = 400
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
